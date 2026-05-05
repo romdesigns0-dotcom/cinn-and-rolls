@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppCTA from '../components/WhatsAppCTA.astro';
+import Button from '../components/Button.astro';
+import { products } from '../data/products';
+import { getWhatsAppLink } from '../utils/whatsapp';
+import { businessData } from '../data/business';
+import { media } from '../data/media';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": businessData.name,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": businessData.city
+  },
+  "sameAs": [
+    businessData.instagram
+  ]
+};
+
+if (businessData.whatsapp) {
+  // @ts-ignore
+  jsonLd.telephone = businessData.whatsapp;
+}
+
+const whatsappLink = getWhatsAppLink();
+---
+
+<Layout 
+  title={`Menú de roles de canela en ${businessData.city} | ${businessData.name}`}
+  description="Conoce nuestro menú completo de roles de canela en Oaxaca. Opciones clásicas, regalos dulces y ediciones especiales."
+  jsonLd={jsonLd}
+>
+  <Header />
+  
+  <main class="min-h-screen bg-brand-deep-blue text-brand-cream py-24 px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16">
+        <span class="block text-brand-sage uppercase tracking-wider text-sm font-semibold">
+          Menú de roles de canela en {businessData.city}
+        </span>
+        <h1 class="font-display text-4xl md:text-5xl mt-2 mb-4">
+          Menú de Cinn & Rolls
+        </h1>
+        <p class="text-brand-cream/80 text-lg max-w-2xl mx-auto">
+          Roles pensados para compartir, regalar o disfrutar. Encuentra opciones dulces en Oaxaca.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        {products.map(product => {
+          const imageObj = product.mediaKey ? media.products[product.mediaKey] : null;
+          return (
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-brand-sage/20 pb-8 gap-6">
+              <div class="max-w-xl">
+                <h3 class="font-display text-2xl font-semibold mb-2">
+                  {product.name}
+                  {product.isPopular && (
+                    <span class="ml-3 inline-block bg-brand-sage/20 text-brand-sage text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide align-middle border border-brand-sage/30">
+                      Destacado
+                    </span>
+                  )}
+                </h3>
+                <p class="text-brand-cream/70">{product.description}</p>
+                {imageObj && imageObj.image && (
+                  <img src={imageObj.image} alt={imageObj.alt} class="mt-4 w-32 h-32 object-cover rounded-xl" />
+                )}
+              </div>
+              <div class="text-left md:text-right shrink-0">
+                <div class="text-brand-sage font-medium text-lg">{product.price}</div>
+                <div class="text-sm text-brand-cream/50 mb-4">{product.availability}</div>
+                <Button href={whatsappLink} variant="secondary" class="w-full md:w-auto">
+                  Consultar por WhatsApp
+                </Button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+  <WhatsAppCTA />
+</Layout>

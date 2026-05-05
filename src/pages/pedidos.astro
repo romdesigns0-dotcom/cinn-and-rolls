@@ -1,0 +1,154 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppCTA from '../components/WhatsAppCTA.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
+import FAQ from '../components/FAQ.astro';
+import { businessData } from '../data/business';
+import { getWhatsAppLink } from '../utils/whatsapp';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Bakery",
+  "name": businessData.name,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": businessData.city
+  },
+  "sameAs": [
+    businessData.instagram
+  ]
+};
+
+if (businessData.whatsapp) {
+  // @ts-ignore
+  jsonLd.telephone = businessData.whatsapp;
+}
+
+const whatsappLink = getWhatsAppLink();
+const hasWhatsApp = Boolean(businessData.whatsapp);
+
+const steps = [
+  {
+    number: "01",
+    title: "Elige tus rolls",
+    description: "Revisa nuestro menú y selecciona lo que más se te antoje."
+  },
+  {
+    number: "02",
+    title: "Escríbenos",
+    description: "Mándanos un mensaje por WhatsApp. Te confirmaremos la disponibilidad."
+  },
+  {
+    number: "03",
+    title: "Confirmamos",
+    description: "Afinamos detalles de entrega o recolección y método de pago."
+  },
+  {
+    number: "04",
+    title: "Disfruta",
+    description: "Recibe o pasa por tu pedido y disfruta de Cinn & Rolls."
+  }
+];
+---
+
+<Layout 
+  title={`Haz tu pedido | ${businessData.name}`}
+  description="Aprende cómo hacer un pedido de roles de canela en Oaxaca. Descubre nuestra dinámica, opciones para regalo y eventos."
+  jsonLd={jsonLd}
+>
+  <Header />
+  
+  <main class="min-h-screen">
+    <section class="py-20 px-4 bg-brand-sage/10 text-center">
+      <div class="max-w-4xl mx-auto">
+        <span class="block text-brand-sage uppercase tracking-wider text-sm font-semibold mb-2">Proceso de compra</span>
+        <h1 class="font-display text-4xl md:text-5xl font-semibold text-brand-deep-blue mb-4">Haz tu pedido de Cinn & Rolls</h1>
+        <p class="text-brand-deep-blue/80 text-lg">Estamos felices de preparar algo dulce para ti. Conoce cómo funciona nuestra dinámica.</p>
+      </div>
+    </section>
+
+    <div class="max-w-7xl mx-auto px-4 py-16 space-y-20">
+      
+      <!-- Cómo pedir (Estilo HowToOrder) -->
+      <section>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {steps.map(step => (
+            <div class="flex flex-col items-center text-center relative p-6 bg-brand-cream/50 rounded-2xl border border-brand-sage/20">
+              <div class="text-6xl font-display font-bold text-brand-sage/40 mb-4 select-none">
+                {step.number}
+              </div>
+              <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-3">
+                {step.title}
+              </h3>
+              <p class="text-brand-deep-blue/80">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-12 text-center">
+          {hasWhatsApp ? (
+            <Button href={whatsappLink} variant="primary" class="px-8 py-4 text-lg">Enviar mensaje ahora</Button>
+          ) : (
+            <div class="inline-block bg-brand-cream border border-brand-deep-blue text-brand-deep-blue px-6 py-3 rounded-lg text-sm font-medium">
+              WhatsApp pendiente de configurar
+            </div>
+          )}
+        </div>
+      </section>
+
+      <!-- Detalles logísticos -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="bg-brand-cream rounded-2xl p-8 border border-brand-sage/30">
+          <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-4">Disponibilidad</h3>
+          <p class="text-brand-deep-blue/80">
+            La disponibilidad puede variar según el día. Para pedidos grandes o cajas, sugerimos consultar con anticipación. Te confirmaremos las opciones disponibles por mensaje.
+          </p>
+        </div>
+
+        <div class="bg-brand-cream rounded-2xl p-8 border border-brand-sage/30">
+          <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-4">Entrega o Pickup</h3>
+          <p class="text-brand-deep-blue/80 mb-2">
+            <strong>Ubicación:</strong> {businessData.city}
+          </p>
+          <p class="text-brand-deep-blue/80">
+            {businessData.deliveryArea}. Los detalles exactos sobre zonas de envío y punto de recolección se te compartirán al confirmar tu pedido.
+          </p>
+        </div>
+      </section>
+
+      <!-- Ocasiones Especiales -->
+      <section class="max-w-4xl mx-auto">
+        <div class="bg-brand-deep-blue text-brand-cream rounded-2xl p-10 text-center shadow-lg">
+          <h2 class="font-display text-3xl font-semibold mb-6">Pedidos para regalo o eventos</h2>
+          <p class="text-lg text-brand-cream/90 mb-8 max-w-2xl mx-auto">
+            Si buscas sorprender a alguien, cuéntanos. Podemos preparar pedidos especiales para reuniones pequeñas de oficina, regalos de cumpleaños o detalles.
+          </p>
+          {hasWhatsApp ? (
+            <Button href={whatsappLink} variant="secondary">
+              Cotizar pedido especial
+            </Button>
+          ) : (
+            <div class="inline-block bg-brand-cream border border-brand-deep-blue text-brand-deep-blue px-6 py-3 rounded-lg text-sm font-medium">
+              WhatsApp pendiente de configurar
+            </div>
+          )}
+        </div>
+      </section>
+
+    </div>
+
+    <!-- FAQ -->
+    <div class="bg-brand-cream/50 border-t border-brand-sage/20">
+      <FAQ />
+    </div>
+
+  </main>
+
+  <Footer />
+  <WhatsAppCTA />
+</Layout>

@@ -1,0 +1,44 @@
+---
+import { products } from '../data/products';
+import Button from './Button.astro';
+import { getWhatsAppLink } from '../utils/whatsapp';
+
+const whatsappLink = getWhatsAppLink();
+---
+
+<section id="menu" class="py-24 px-4 bg-brand-deep-blue text-brand-cream">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-brand-sage uppercase tracking-wider text-sm font-semibold">
+        Nuestro Menú
+      </span>
+      <h2 class="font-display text-4xl md:text-5xl mt-2 mb-4">
+        Opciones para pedir
+      </h2>
+      <p class="text-brand-cream/80 text-lg">
+        Menú de productos regulares. Todos los roles están hechos para disfrutarse suaves y cálidos.
+      </p>
+    </div>
+
+    <div class="space-y-8">
+      {products.map(product => (
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-brand-sage/20 pb-8 gap-4">
+          <div class="max-w-xl">
+            <h3 class="font-display text-2xl font-semibold mb-2">{product.name}</h3>
+            <p class="text-brand-cream/70">{product.description}</p>
+          </div>
+          <div class="text-left md:text-right">
+            <div class="text-brand-sage font-medium text-lg">{product.price}</div>
+            <div class="text-sm text-brand-cream/50">{product.availability}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <Button href={whatsappLink} variant="secondary">
+        Haz tu pedido ahora
+      </Button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const occasions = [
+  "Regalos dulces",
+  "Reuniones de oficina",
+  "Un desayuno especial",
+  "Cumpleaños",
+  "Antojo de fin de semana",
+  "Eventos pequeños"
+];
+---
+
+<section class="py-24 px-4 max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <SectionHeading 
+        eyebrow="Para cualquier momento"
+        title="Momentos Cinn & Rolls"
+        description="No necesitas una excusa para disfrutar de un buen rol de canela, pero aquí te damos algunas ideas donde somos el acompañante perfecto."
+      />
+    </div>
+    
+    <div class="grid grid-cols-2 gap-4">
+      {occasions.map(occasion => (
+        <div class="bg-white border border-brand-sage/30 rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-shadow flex items-center justify-center">
+          <p class="font-display text-xl font-medium text-brand-deep-blue">{occasion}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

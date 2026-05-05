@@ -1,0 +1,36 @@
+---
+import { businessData } from '../data/business';
+import { getWhatsAppLink } from '../utils/whatsapp';
+import { media } from '../data/media';
+
+const whatsappLink = getWhatsAppLink();
+---
+
+<footer class="bg-brand-deep-blue text-brand-cream py-12 mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center gap-6">
+    <h2 class="font-display text-3xl font-semibold">
+      {media.brand.logoFull ? (
+        <img src={media.brand.logoFull} alt={businessData.name} class="h-10 w-auto opacity-90 hover:opacity-100 transition-opacity" />
+      ) : (
+        businessData.name
+      )}
+    </h2>
+    
+    <p class="text-brand-cream/80 text-lg max-w-md">
+      Roles de canela en {businessData.city}. Fresh · Soft · Warm.
+    </p>
+
+    <div class="flex gap-4 mt-4">
+      <a href={businessData.instagram} target="_blank" rel="noopener noreferrer" class="hover:text-brand-sage transition-colors">
+        Instagram
+      </a>
+      <a href={whatsappLink} class="hover:text-brand-sage transition-colors">
+        WhatsApp
+      </a>
+    </div>
+
+    <div class="mt-8 pt-8 border-t border-brand-cream/20 w-full flex justify-center text-sm text-brand-cream/60">
+      <p>&copy; {new Date().getFullYear()} {businessData.name}. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>

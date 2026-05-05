@@ -1,0 +1,39 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { businessData } from '../data/business';
+import { media } from '../data/media';
+---
+
+<section class="py-24 px-4 bg-brand-sage/20">
+  <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
+    <div class="w-full md:w-1/2">
+      <!-- Image or Placeholder -->
+      {media.story.image ? (
+        <img src={media.story.image} alt={media.story.alt} class="w-full aspect-[4/5] object-cover rounded-2xl border border-brand-deep-blue/10 shadow-sm" />
+      ) : (
+        <div class="w-full aspect-[4/5] bg-brand-cream rounded-2xl flex flex-col items-center justify-center border border-brand-deep-blue/10">
+          <span class="text-brand-deep-blue/50 font-medium">Foto pendiente</span>
+          <span class="text-brand-deep-blue/30 text-sm mt-2 font-display italic">C&R</span>
+        </div>
+      )}
+    </div>
+    
+    <div class="w-full md:w-1/2">
+      <SectionHeading 
+        eyebrow="Hecho en Oaxaca"
+        title="Fresh · Soft · Warm"
+      />
+      <div class="text-brand-deep-blue/80 text-lg space-y-6">
+        <p>
+          En {businessData.name}, creemos en la magia de las cosas simples hechas con dedicación. Cuidamos cada detalle para ofrecerte un producto que se siente como un abrazo cálido.
+        </p>
+        <p>
+          Nuestra masa es suave y esponjosa, preparada para que el aroma a canela acompañe tus momentos especiales.
+        </p>
+        <p>
+          Somos una marca local de {businessData.city}, comprometida con brindar momentos dulces, nostálgicos y familiares a todos los que prueban nuestra receta.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

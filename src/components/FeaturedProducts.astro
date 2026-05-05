@@ -1,0 +1,20 @@
+---
+import { products } from '../data/products';
+import SectionHeading from './SectionHeading.astro';
+import ProductCard from './ProductCard.astro';
+---
+
+<section id="productos" class="py-20 px-4 max-w-7xl mx-auto">
+  <SectionHeading 
+    eyebrow="Destacados" 
+    title="Dulces momentos" 
+    description="Descubre nuestra selección de roles de canela, pensados para compartir, regalar o disfrutar."
+    align="center"
+  />
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+    {products.map(product => (
+      <ProductCard {...product} />
+    ))}
+  </div>
+</section>

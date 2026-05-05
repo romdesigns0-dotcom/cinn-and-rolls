@@ -1,23 +1,62 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	canonical?: string;
+	ogTitle?: string;
+	ogDescription?: string;
+	ogImage?: string;
+	jsonLd?: Record<string, any>;
+}
+
+const { 
+	title = "Cinn & Rolls | Roles de canela en Oaxaca", 
+	description = "Disfruta de Cinn & Rolls en Oaxaca. Hechos para disfrutarse suaves y cálidos.",
+	canonical,
+	ogTitle,
+	ogDescription,
+	ogImage,
+	jsonLd
+} = Astro.props;
+
+// Usamos la URL actual si está disponible de forma segura
+const siteUrl = Astro.site?.href || Astro.url?.origin || "";
+const finalCanonicalUrl = canonical || Astro.url.href;
+const finalOgTitle = ogTitle || title;
+const finalOgDescription = ogDescription || description;
+// Solo usar la imagen OG si se pasa explícitamente, para evitar enlaces rotos
+const finalOgImage = ogImage;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		{siteUrl && <link rel="canonical" href={finalCanonicalUrl} />}
+
+		<!-- Open Graph básico -->
+		<meta property="og:title" content={finalOgTitle} />
+		<meta property="og:description" content={finalOgDescription} />
+		<meta property="og:type" content="website" />
+		{siteUrl && <meta property="og:url" content={finalCanonicalUrl} />}
+		{finalOgImage && <meta property="og:image" content={finalOgImage} />}
+
+		<!-- Fonts: DM Sans and Fallback Display Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+		{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

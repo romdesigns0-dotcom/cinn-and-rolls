@@ -1,0 +1,25 @@
+---
+import { faqs } from '../data/faqs';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section class="py-24 px-4 max-w-4xl mx-auto">
+  <SectionHeading 
+    title="Preguntas frecuentes" 
+    description="Todo lo que necesitas saber antes de pedir tus roles de canela."
+    align="center"
+  />
+
+  <div class="mt-12 space-y-6">
+    {faqs.map(faq => (
+      <div class="bg-white border border-brand-sage/30 rounded-xl p-6 shadow-sm">
+        <h3 class="font-display text-xl font-semibold text-brand-deep-blue mb-2">
+          {faq.question}
+        </h3>
+        <p class="text-brand-deep-blue/80">
+          {faq.answer}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>

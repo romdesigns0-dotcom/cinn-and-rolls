@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-deep-blue: #003663;
+  --color-brand-cream: #F2EBD7;
+  --color-brand-dark-green: #102E18;
+  --color-brand-sage: #BBCEB7;
+  --color-brand-light-blue: #ACC9EB;
+  
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Cormorant Garamond", "Fraunces", "Georgia", serif;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-cream text-brand-deep-blue font-sans antialiased;
+  }
+
+  ::selection {
+    @apply bg-brand-sage text-brand-deep-blue;
+  }
+
+  a {
+    @apply transition-colors duration-200 hover:text-brand-dark-green;
+  }
+
+  img {
+    @apply max-w-full h-auto block;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-medium leading-tight;
+  }
+}

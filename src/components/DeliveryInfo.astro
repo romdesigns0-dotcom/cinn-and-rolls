@@ -1,0 +1,34 @@
+---
+import { businessData } from '../data/business';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section class="py-20 px-4 bg-brand-cream border-t border-brand-sage/20">
+  <div class="max-w-5xl mx-auto text-center">
+    <SectionHeading 
+      title="Entregas y Cobertura" 
+      description="Te compartimos la información básica sobre cómo trabajamos."
+      align="center"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+      <div class="p-6">
+        <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-2">Ubicación</h3>
+        <p class="text-brand-deep-blue/80">{businessData.city}</p>
+        <p class="text-brand-deep-blue/60 text-sm mt-1">{businessData.address}</p>
+      </div>
+      
+      <div class="p-6 border-y md:border-y-0 md:border-x border-brand-sage/30">
+        <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-2">Horarios</h3>
+        <p class="text-brand-deep-blue/80">{businessData.hours}</p>
+        <p class="text-brand-deep-blue/60 text-sm mt-1">Sujeto a disponibilidad</p>
+      </div>
+      
+      <div class="p-6">
+        <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-2">Cobertura</h3>
+        <p class="text-brand-deep-blue/80">{businessData.deliveryArea}</p>
+        <p class="text-brand-deep-blue/60 text-sm mt-1">Consultar al hacer pedido</p>
+      </div>
+    </div>
+  </div>
+</section>

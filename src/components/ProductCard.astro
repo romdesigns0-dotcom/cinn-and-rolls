@@ -1,0 +1,44 @@
+---
+import { media } from '../data/media';
+
+interface Props {
+  name: string;
+  description: string;
+  price: string;
+  availability: string;
+  isPopular?: boolean;
+  mediaKey?: keyof typeof media.products;
+}
+
+const { name, description, price, availability, isPopular, mediaKey } = Astro.props;
+const imageObj = mediaKey ? media.products[mediaKey] : null;
+---
+
+<div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-brand-sage/20 flex flex-col h-full hover:shadow-md transition-shadow">
+  <!-- Image -->
+  <div class="w-full aspect-[4/3] bg-brand-sage/30 flex items-center justify-center relative">
+    {isPopular && (
+      <span class="absolute top-4 left-4 z-10 bg-brand-deep-blue text-brand-cream text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+        Destacado
+      </span>
+    )}
+    {imageObj && imageObj.image ? (
+      <img src={imageObj.image} alt={imageObj.alt} class="w-full h-full object-cover" />
+    ) : (
+      <div class="text-center">
+        <span class="text-brand-deep-blue/50 font-medium block">Foto pendiente</span>
+        <span class="text-brand-deep-blue/30 text-sm mt-2 font-display italic">C&R</span>
+      </div>
+    )}
+  </div>
+  
+  <div class="p-6 flex flex-col flex-grow">
+    <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-2">{name}</h3>
+    <p class="text-brand-deep-blue/70 mb-4 flex-grow">{description}</p>
+    
+    <div class="mt-auto">
+      <div class="text-brand-dark-green font-medium">{price}</div>
+      <div class="text-sm text-brand-deep-blue/50 mt-1">{availability}</div>
+    </div>
+  </div>
+</div>

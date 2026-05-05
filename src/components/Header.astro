@@ -1,0 +1,55 @@
+---
+import { businessData } from '../data/business';
+import Button from './Button.astro';
+import { getWhatsAppLink } from '../utils/whatsapp';
+import { media } from '../data/media';
+
+const navItems = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Menú', href: '/menu' },
+  { label: 'Pedidos', href: '/pedidos' },
+  { label: 'Instagram', href: businessData.instagram },
+];
+
+const whatsappLink = getWhatsAppLink();
+---
+
+<header class="w-full bg-brand-cream border-b border-brand-sage/30 sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <!-- Logo provisional o real -->
+      <a href="/" class="font-display text-2xl font-semibold text-brand-deep-blue">
+        {media.brand.logoHorizontal ? (
+          <img src={media.brand.logoHorizontal} alt={businessData.name} class="h-8 w-auto" />
+        ) : media.brand.logoFull ? (
+          <img src={media.brand.logoFull} alt={businessData.name} class="h-8 w-auto" />
+        ) : (
+          businessData.name
+        )}
+      </a>
+      
+      <!-- Navegación desktop -->
+      <nav class="hidden md:flex gap-8">
+        {navItems.map(item => (
+          <a href={item.href} class="text-brand-deep-blue/80 hover:text-brand-deep-blue font-medium transition-colors">
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <!-- CTA móvil mínimo -->
+        <a href="/pedidos" class="md:hidden text-brand-deep-blue font-medium text-sm underline underline-offset-4">
+          Hacer pedido
+        </a>
+
+        <!-- Botón WhatsApp Desktop -->
+        <div class="hidden md:block">
+          <Button href={whatsappLink} variant="primary">
+            Pedir por WhatsApp
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

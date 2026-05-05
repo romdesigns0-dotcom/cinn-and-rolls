@@ -1,0 +1,38 @@
+---
+import { businessData } from '../data/business';
+import Button from './Button.astro';
+import { getWhatsAppLink } from '../utils/whatsapp';
+import { media } from '../data/media';
+
+const whatsappLink = getWhatsAppLink();
+---
+
+<section class="w-full bg-brand-cream py-20 lg:py-32 flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
+  {media.hero.image && (
+    <div class="absolute inset-0 z-0 opacity-20">
+      <img src={media.hero.image} alt={media.hero.alt} class="w-full h-full object-cover" />
+    </div>
+  )}
+  <div class="max-w-4xl mx-auto relative z-10">
+    <span class="inline-block py-1 px-3 rounded-full bg-brand-sage/30 text-brand-deep-blue text-sm font-semibold tracking-wide uppercase mb-6">
+      Hecho en {businessData.city}
+    </span>
+    
+    <h1 class="font-display text-5xl md:text-7xl font-bold text-brand-deep-blue leading-tight mb-6">
+      Roles de canela en Oaxaca.
+    </h1>
+    
+    <p class="text-xl md:text-2xl text-brand-deep-blue/80 font-medium mb-10 max-w-2xl mx-auto">
+      Hechos para disfrutarse suaves y cálidos. Un antojo premium para compartir o regalar.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <Button href={whatsappLink} variant="primary" class="w-full sm:w-auto text-lg px-8 py-4">
+        Pedir por WhatsApp
+      </Button>
+      <Button href="#menu" variant="ghost" class="w-full sm:w-auto text-lg px-8 py-4">
+        Ver menú
+      </Button>
+    </div>
+  </div>
+</section>

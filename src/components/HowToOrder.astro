@@ -1,0 +1,52 @@
+---
+import SectionHeading from './SectionHeading.astro';
+
+const steps = [
+  {
+    number: "01",
+    title: "Elige tus rolls",
+    description: "Revisa nuestro menú y selecciona lo que más se te antoje."
+  },
+  {
+    number: "02",
+    title: "Escríbenos",
+    description: "Mándanos un mensaje por WhatsApp con tu pedido."
+  },
+  {
+    number: "03",
+    title: "Confirmamos",
+    description: "Revisamos disponibilidad y te confirmamos los detalles."
+  },
+  {
+    number: "04",
+    title: "Disfruta",
+    description: "Recibe o pasa por tu pedido y disfruta de Cinn & Rolls."
+  }
+];
+---
+
+<section id="como-pedir" class="py-20 px-4 bg-brand-sage/10">
+  <div class="max-w-7xl mx-auto">
+    <SectionHeading 
+      eyebrow="Proceso de compra" 
+      title="¿Cómo pedir?" 
+      align="center"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+      {steps.map(step => (
+        <div class="flex flex-col items-center text-center relative">
+          <div class="text-6xl font-display font-bold text-brand-sage/40 mb-4 select-none">
+            {step.number}
+          </div>
+          <h3 class="font-display text-2xl font-semibold text-brand-deep-blue mb-3">
+            {step.title}
+          </h3>
+          <p class="text-brand-deep-blue/80">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
