@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "cinn-and-rolls-web-app"
+  },
   "targets": {},
   "etags": {}
 }
